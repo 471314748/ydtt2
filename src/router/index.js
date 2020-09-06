@@ -6,6 +6,7 @@ import Index from '../views/index/index.vue'
 import Search from '../views/search/index.vue'
 import My from '../views/my/index.vue'
 import SearhResult from '../views/searhResult/index.vue'
+import Zhi from '../views/zhi/index.vue'
 
 Vue.use(VueRouter)
 
@@ -41,7 +42,11 @@ const routes = [
     path: '/Searhresult',
     name: 'SearhResult',
     component: SearhResult
-  },
+  },{
+    path: '/zhi',
+    name: 'Zhi',
+    component: Zhi
+  }
 ]
 
 const router = new VueRouter({
