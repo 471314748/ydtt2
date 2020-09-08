@@ -31,8 +31,7 @@ export default {
   },
   created() {
     // 路由元信息
-    console.log(this.$router.options.routes);
-    console.log(this);
+    // console.log('路由元信息', this.$router.options.routes);
   },
 }
 </script>

@@ -181,7 +181,7 @@ export default {
         this.$set(item, 'finished', false)
         this.$set(item, 'isLoading', false)
       });
-      console.log('数据', this.channelList);
+      // console.log('数据', this.channelList);
     },
     // 弹出层
     showbtn () {
