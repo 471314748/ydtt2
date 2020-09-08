@@ -43,7 +43,7 @@
                     name="cross" />
         </template>
         <template #title>
-          <span>{{item}}</span>
+          <span @click="onSearch(item)">{{item}}</span>
         </template>
       </van-cell>
     </van-cell-group>
@@ -52,7 +52,7 @@
 
 <script>
 import { apiThink } from '@/api/other.js'
-import { setLocal, getLocal } from '../../utils/mylocal.js'
+import { setLocal, getLocal } from '@/utils/mylocal.js'
 export default {
   data () {
     return {
