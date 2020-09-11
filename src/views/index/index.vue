@@ -191,7 +191,7 @@ export default {
     // 点叉叉事件
     openmore (subitem) {
       this.$refs.more.show = true
-      console.log(subitem)
+      // console.log(subitem)
       this.artid = subitem.art_id
     },
     // 删除文章数据

@@ -24,7 +24,7 @@
                   :key="index"
                   :title="item.type" />
       </van-cell-group>
-      {{ artid }}
+      <!-- {{ artid }} -->
     </van-popup>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
       try {
         await apiDislike({ target: this.artid })
       } catch (error) {
-        console.log(error)
+        console.log('请求错误返回', error)
       }
       this.show = false
     },

@@ -30,4 +30,12 @@ function blackList (data) {
     data
   })
 }
-export { getArticles, apiDislike, apiReport, blackList }
+// 获取搜索数据
+function getSearch (params) {
+  return instance({
+    url: '/v1_0/search',
+    method: 'get',
+    params
+  })
+}
+export { getArticles, apiDislike, apiReport, blackList, getSearch }

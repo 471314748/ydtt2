@@ -21,7 +21,7 @@
                 @click="onSearch(item.oldItem)"
                 v-for="(item, index) in thinkList"
                 :key="index">
-        <template>
+        <template #title>
           <span v-html="item.newItem"></span>
         </template>
       </van-cell>
@@ -35,7 +35,8 @@
                     name="delete" />
         </template>
       </van-cell>
-      <van-cell icon='search'
+      <van-cell @click="onSearch(item)"
+                icon='search'
                 v-for="(item, index) in historyList"
                 :key="index">
         <template #default>
@@ -43,7 +44,7 @@
                     name="cross" />
         </template>
         <template #title>
-          <span @click="onSearch(item)">{{item}}</span>
+          <span>{{item}}</span>
         </template>
       </van-cell>
     </van-cell-group>
