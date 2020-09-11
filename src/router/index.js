@@ -42,10 +42,16 @@ const routes = [
     path: '/Searhresult',
     name: 'SearhResult',
     component: SearhResult
-  },{
+  },
+  {
     path: '/zhi',
     name: 'Zhi',
     component: Zhi
+  },
+  {
+    path: '/checklogin',
+    name: 'checklogin',
+    component: Login
   }
 ]
 

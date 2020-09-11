@@ -2,6 +2,7 @@
 import axios from 'axios'
 import store from '../store/index'
 import JSONbig from 'json-bigint'
+import { setLocal } from './mylocal'
 
 // 创建一个 axios 实例
 var instance = axios.create({
@@ -18,6 +19,11 @@ var instance = axios.create({
       return data
     }
   }],
+})
+// 刷新token请求
+var instance1 = axios.create({
+  // 设置基地址
+  baseURL: 'http://ttapi.research.itcast.cn/',
 })
 // 给 axios 设置拦截器
 // 请求拦截器
@@ -39,8 +45,30 @@ instance.interceptors.response.use(
   function (response) {
     return response.data
   },
-  function (error) {
-    return Promise.reject(error)
+  async function (error) {
+    // token失效换refresh_token上
+    // 错误状态码
+    let state = error.response.status
+    if (state === 401) {
+      let refreshToken = store.state.userInfo.refresh_token
+      let res = await instance1({
+        url: '/app/v1_0/authorizations',
+        method: 'PUT',
+        headers: {
+          Authorization: 'Bearer ' + refreshToken
+        }
+      })
+      let newToken = res.data.data.token
+      let newObj = {
+        token: newToken,
+        refresh_token: refreshToken
+      }
+      console.log(newObj)
+      store.commit('setUserInfo', newObj)
+      setLocal('userInfo', newObj)
+      return instance(error.config)
+    }
+    // return Promise.reject(error)
   }
 )
 

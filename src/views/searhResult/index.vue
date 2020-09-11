@@ -17,9 +17,11 @@
         <van-cell>
           <template #title>
             <h4>{{item.title}}</h4>
-            <van-grid v-if="item.cover.type !== 0" :border="false"
+            <van-grid v-if="item.cover.type !== 0"
+                      :border="false"
                       :column-num="3">
-              <van-grid-item v-for="(imgItem, imgIndex) in item.cover.images" :key="imgIndex">
+              <van-grid-item v-for="(imgItem, imgIndex) in item.cover.images"
+                             :key="imgIndex">
                 <van-image :src="imgItem" />
               </van-grid-item>
             </van-grid>
@@ -32,9 +34,11 @@
         </van-cell>
         <van-grid class="items"
                   :column-num="3">
-          <van-grid-item icon="comment-o"
-                         text="1741" />
-          <van-grid-item icon="like-o"
+          <van-grid-item @click="comment"
+                         icon="comment-o"
+                         :text="item.comm_count+''||'评论'" />
+          <van-grid-item @click="zan"
+                         icon="like-o"
                          text="点赞" />
           <van-grid-item icon="friends-o"
                          text="分享" />
@@ -56,10 +60,12 @@ export default {
       key: "",
       // 数据
       resultList: [],
+      // 加载状态
       loading: false,
+      // 加载结束
       finished: false,
       // 页码
-      page: 1,
+      page: 0,
       // 页容量
       perpage: 10,
     }
@@ -72,12 +78,37 @@ export default {
     onClickLeft () {
       this.$router.back()
     },
+    // 上拉加载更多
     async onLoad () {
-      console.log('onLoad')
+      // console.log('onLoad')
+      // 请求数据
+      this.page++
       let res = await getSearch({ page: this.page, per_page: this.perpage, q: this.key })
-      console.log(res)
-      this.resultList = res.data.results
+      // console.log(res)
+      // 加到list
+      this.resultList = [...this.resultList, ...res.data.results]
       console.log(this.resultList)
+      // 加载结束
+      this.loading = false
+      // 数据加载完
+      if (res.data.results.length === 0) {
+        this.finished = true
+      }
+    },
+    // 评论
+    comment () {
+      // 获取用户token
+      // let token = this.$store.state.userInfo.token
+      // if (!token) {
+      //   this.$toast.fail('用户未登录')
+      //   this.$router.push('/')
+      //   return
+      // }
+      this.$login()
+      console.log('评论啊')
+    },
+    zan () {
+      this.$login()
     }
   }
 }

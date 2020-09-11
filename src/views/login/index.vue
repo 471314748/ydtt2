@@ -98,7 +98,15 @@ export default {
           console.log(res.data.token);
           this.$store.commit('setUserInfo', res.data)
           setLocal('userInfo', res.data)
-          this.$router.push('/index')
+          // this.$router.push('/index')
+          // 判断登录 路由信息
+          let path = this.$route.path
+          // console.log(path)
+          if (path === '/checklogin') {
+            this.$router.back()
+          } else {
+            this.$router.push('/index')
+          }
         } catch (error) {
           this.$toast.fail('登录失败')
         }
@@ -139,11 +147,11 @@ export default {
     }
   }
 }
-.loginImg{
+.loginImg {
   display: flex;
   justify-content: center;
   // text-align: center;
-  img{
+  img {
     width: 100px;
     height: 100px;
   }

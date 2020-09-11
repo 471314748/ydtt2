@@ -10,6 +10,20 @@ import './style/icon.css'
 // 导入过滤器
 import './utils/myfilter'
 
+// 封装登录校验
+// Vue.prototype.$login = function () {
+//   let token = store.state.userInfo.token
+//   if (!token) {
+//     Toast.fail('用户未登录')
+//     router.push('/')
+//     return false
+//   }
+//   return true
+// }
+
+// 导入插件
+import myplugin from './utils/myplugin'
+Vue.use(myplugin)
 
 Vue.config.productionTip = false
 
