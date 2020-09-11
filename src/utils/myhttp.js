@@ -20,11 +20,13 @@ var instance = axios.create({
     }
   }],
 })
-// 刷新token请求
+
+// 刷新token请求，新的axios实例
 var instance1 = axios.create({
   // 设置基地址
-  baseURL: 'http://ttapi.research.itcast.cn/',
+  baseURL: process.env.VUE_APP_URL,
 })
+
 // 给 axios 设置拦截器
 // 请求拦截器
 instance.interceptors.request.use(
@@ -50,22 +52,25 @@ instance.interceptors.response.use(
     // 错误状态码
     let state = error.response.status
     if (state === 401) {
+      // 获取备用的长期token，发送请求
       let refreshToken = store.state.userInfo.refresh_token
       let res = await instance1({
-        url: '/app/v1_0/authorizations',
+        url: '/v1_0/authorizations',
         method: 'PUT',
         headers: {
           Authorization: 'Bearer ' + refreshToken
         }
       })
+      // 获取新的token,替换目前token
       let newToken = res.data.data.token
       let newObj = {
         token: newToken,
         refresh_token: refreshToken
       }
-      console.log(newObj)
+      // console.log(newObj)
       store.commit('setUserInfo', newObj)
       setLocal('userInfo', newObj)
+      // 重新失败请求
       return instance(error.config)
     }
     // return Promise.reject(error)
