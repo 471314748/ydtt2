@@ -5,7 +5,7 @@
                  left-arrow
                  @click-left="onClickLeft"
                  class="titleTop"
-                 title="首页" />
+                 title="搜索结果" />
     <!-- 内容区域 -->
     <van-list v-model="loading"
               :finished="finished"
@@ -14,7 +14,7 @@
 
       <div v-for="(item, index) in resultList"
            :key="index">
-        <van-cell>
+        <van-cell @click="$router.push('/detail?artid='+item.art_id)">
           <template #title>
             <h4>{{item.title}}</h4>
             <van-grid v-if="item.cover.type !== 0"

@@ -38,4 +38,12 @@ function getSearch (params) {
     params
   })
 }
-export { getArticles, apiDislike, apiReport, blackList, getSearch }
+// /app/v1_0/articles/:article_id
+// 获取文章详情
+function getDatailByid (artid) {
+  return instance({
+    url: '/v1_0/articles/'+artid,
+    method: 'get'
+  })
+}
+export { getArticles, apiDislike, apiReport, blackList, getSearch, getDatailByid }

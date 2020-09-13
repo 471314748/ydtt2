@@ -7,7 +7,7 @@ import Search from '../views/search/index.vue'
 import My from '../views/my/index.vue'
 import SearhResult from '../views/searhResult/index.vue'
 import Zhi from '../views/zhi/index.vue'
-
+import Detail from '../views/detail/index.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -52,6 +52,11 @@ const routes = [
     path: '/checklogin',
     name: 'checklogin',
     component: Login
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: Detail
   }
 ]
 
