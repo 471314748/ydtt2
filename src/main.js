@@ -9,6 +9,8 @@ import './style/icon.css'
 
 // 导入过滤器
 import './utils/myfilter'
+// 自动转rem
+import 'amfe-flexible/index.js'
 
 // 封装登录校验
 // Vue.prototype.$login = function () {
