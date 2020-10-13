@@ -74,12 +74,15 @@
       <div v-for="(item, index) in commentList"
            :key="index">
         <comment :isReply="false"
+         @openreply="openreply"
                  :item="item" />
       </div>
     </van-list>
     <!-- <comment></comment> -->
     <!-- 评论书写 -->
-    <weite class="weiteSea"></weite>
+    <weite class="weiteSea" @passcomment='passcomment'></weite>
+    <!-- 回复弹出层 -->
+    <reply></reply>
     <h2>{{$route.query.artid}}</h2>
 
   </div>
@@ -89,13 +92,15 @@
 <script>
 import comment from './com/comment.vue'
 import weite from './com/weite.vue'
+import reply from './com/reply.vue'
 import { getDatailByid } from '@/api/article.js'
 import { apiFollow, followings, apiLikings, noLikings } from '@/api/use.js'
 import { getComments } from '@/api/comment.js'
 export default {
   components: {
     comment,
-    weite
+    weite,
+    reply
   },
   data () {
     return {
@@ -165,16 +170,34 @@ export default {
       let res = await getComments({
         type: 'a',
         source: this.artid,
-        // offset: this.offset,
+        offset: this.offset,
         limit: this.limit
       })
       console.log('评论数据', res)
       this.commentList = [...this.commentList, ...res.data.results]
+      // 保存下一页的标识
       this.offset = res.data.last_id
+      // 保存最后一页的标识
       this.endid = res.data.end_id
+      // 将 list 的加载状态设置为 false
       this.loading = false
-      this.finished = false
-    }
+      console.log('this.loading', this.loading);
+      // 判断是否数据源加载完毕
+      if (this.commentList.length == res.data.total_count) {
+        this.finished = true
+      }
+    },
+    // 子回复加到父
+    passcomment(obj) {
+      console.log(this.commentList)
+      this.commentList.unshift(obj)
+    },
+    // 打开回复面板
+    openreply (value) {
+      // 打开回复面板
+      this.$refs.reply.show = value
+    },
+    
   },
 
 }

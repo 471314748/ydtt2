@@ -8,4 +8,16 @@ function getComments (params) {
   })
 }
 
-export { getComments }
+// 添加评论
+function apiAddComment ({art_id, content}) {
+  return instance({
+    url: '/v1_0/comments',
+    method: 'POST',
+    data: {
+      target: art_id,
+      content: content
+    }
+  })
+}
+
+export { getComments, apiAddComment }
